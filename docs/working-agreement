@@ -1,0 +1,39 @@
+# Project 2 Working Agreement Details
+
+**Carley Saeger & Niamh O'Neill**
+
+## Project choice
+
+We chose Option A: "Contract-first build with mid-point swap". Each partner will direct agents on a separate component, such as frontend/API or app/data pipeline. In a couple weeks, we'll swap & add features to each other's component. We wanted to use the same platform and don't want any added costs using a platform we have never used before. We also chose this option because we think both components will be very strong since we get to work on them twice essentially – building then reviewing.
+
+## Roles
+
+Whoever builds/starts with the component will have the final say on that area before we submit it.
+
+## Tools
+
+We will both use VS Code GitHub CoPilot Chat. One partner likes to use Gemini and the other likes CoPilot for ideas or prompt generation. We both don't pick a certain agent and usually keep it on the auto one.
+
+## Communication
+
+We will use text (already shared phone number with each other) because we check it more often than email. Response time we will give each other 24 hours to respond to a text. Check-in weekly before class with a quick text or if having problems meet 15 minutes before class. Text whenever we have questions for each other, so the frequency will vary each week.
+
+## Repo workflow
+
+We will create one repo and the other will create a separate branch. Once we finish the first components we will merge. Then when we swap to look at each other's component we will both work from main and make sure to commit and pull accordingly. Once we do the final commits on each other's components, look at the differences and sign off/have the final say.
+
+## Agent rules
+
+Everything the agent creates should be reviewed by a human in our opinion. We both will keep separate agent logs in our own word documents and then combine them at the end of the project of what the agent did wrong & how we caught it.
+
+## Disagreements
+
+We can break ties with rock, paper, scissors, we are very easy going. We will figure out scope early, so we don't have to cut it later on hopefully. We will set a date for when we want to swap and do frequent check-ins so if a partner is falling behind, we can just work together or schedule a meeting before those important dates.
+
+## Data and costs
+
+Spending cap will be the monthly student tokens in GitHub Copilot for both of us.
+
+Data and API from this website:
+
+https://enterprise.wikimedia.com/project-data/wikivoyage-api/
