@@ -213,3 +213,13 @@ label.
   after it is retrieved; displayed source status communicates that limitation.
 - Weather alerts, notifications, hotels, flights, and automatic itinerary scheduling
   are out of scope for this feature.
+
+## Risks and Governance
+
+| Risk | Likelihood (high/medium/low) | Impact (high/medium/low) | Mitigation | Owner | Status |
+|---|---|---|---|---|---|
+| Data category (Wikivoyage data) | Low | Low | If the data is inaccurate or outdated, find a new source. Add a disclaimer that attraction costs and operating hours may change before the user's visit. | Wikivoyage | Wikivoyage is currently accessible |
+| Data category (user-entered data) | Low (only dates, budget, etc.; no personal information) | Low | Test that dates, budgets, and other inputs are handled correctly and are not stored after the user leaves. | Stored locally | Not active yet |
+| Decisions (the app recommends activities) | Medium | Medium | Add a disclaimer that the app provides suggestions and the final decision to visit is up to the user. | Disclaimer on the page | Not active yet |
+| Failure (the app is unavailable) | Medium | High | Display a message such as “The app is down. Come back later!” and notify the project team through student email (onei7114@stthomas.edu and saeg2148@stthomas.edu). | Project owners (Niamh and Carley) | Not active yet |
+| Agents (spending access) | Low | Low | Agents must not spend money for this app or have access to any bank account or credit card. | GitHub Copilot | Active |
