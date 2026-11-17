@@ -167,8 +167,9 @@ travelbuddy/
 │
 ├── docs/
 │   ├── specification.md
-│   ├── contract.md (possibly adding in the future - word doc for now)
-│   └── working-agreement.md (possibly adding in the future - word doc)
+│   ├── contract.md
+│   ├── agent-log.md (complete at the end)
+│   └── working-agreement.md 
 │
 └── README.md
 ```

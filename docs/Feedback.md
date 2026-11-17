@@ -7,7 +7,7 @@
 | Clarify accounts and saved preferences. Decide whether logging in is required, what gets saved, where it lives, and when it is cleared. | Reject | We do not feel saving or logging in will be necessary for users and they are not able to book any tickets to the attractions, so there is no need for users to revisit what they decide that they would like to do. | Clarified with Spec 017 and updated assumptions |
 | Set a consistent missing-data rule. Can an attraction with unknown admission cost appear or be selected? Neither component should guess. | Accept | This is accepted as it prevents the agent from making up costs of attractions. | Spec (added 2 acceptance tests and an acceptance scenario and updated some functional requirements) |
 | Assign each risk to a person. Add a disclaimer or data provider is not someone responsible for handling the problem. | Accept | We misunderstood what the owner section of risk meant. | Spec (owner part of Risks and Governance) |
-| Agree on the swap date and integration test. Prove the frontend can submit a trip and correctly display the backend's response before expanding components. | Accept |  | Contract |
+| Agree on the swap date and integration test. Prove the frontend can submit a trip and correctly display the backend's response before expanding components. | Accept | Swap date is now December 2nd. We agree that the basics should work before expanding components. | Contract |
 
 ## Feeback with CoPilot Speckit clarify
 

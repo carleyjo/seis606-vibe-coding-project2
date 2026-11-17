@@ -8,7 +8,7 @@
 | **Main question** | Will our two components fit together? |
 | **Core content** | API, data models, business rules, integration plan |
 | **Rules** | See working agreement and business rules |
-| **Decision Point** | TBD |
+| **Decision Point** | Decide on final components December 4th |
 | **Changes** | Both partners approve and log them |
 
 ---
@@ -79,6 +79,9 @@ Updated on a later version.
 | Milestone | What must work |
 |------------|----------------|
 | November 17 | Have a mockup frontend and tourist attractions in the backend. |
+| December 2  | Have frontend and backend ready to swap with each other.       |
+| December 4  | Confirm final changes to each other's components and submit final agent log. |
+| December 9  | Be ready to present to the whole class. | 
 
 ## 7. How this contract changes
 
@@ -92,4 +95,5 @@ Updated on a later version.
 
 | Version | Date | Person | Change(s) |
 |----------|------|---------|-----------|
-| 1.0 | Nov 7, 2026 | Both | First draft of spec. |
+| 1.0 | Nov 7, 2026 | Both | First Draft of Spec. |
+| 1.1 | Nov 16, 2026 | Both | Revised Spec & Contract after feedback. |
