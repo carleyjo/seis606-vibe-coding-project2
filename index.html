@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://en.wikivoyage.org; style-src 'self'; script-src 'self';">
+    <title>Travel Buddy</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <p class="eyebrow">Travel Buddy</p>
+        <h1>Find affordable things to do.</h1>
+        <p>Search Wikivoyage for attractions that fit your dates and budget.</p>
+      </header>
+
+      <form id="search-form" class="panel">
+        <label>City <input id="city" required value="London"></label>
+        <div class="grid">
+          <label>Arriving <input id="start-date" type="date" value="2026-12-01" required></label>
+          <label>Leaving <input id="end-date" type="date" value="2026-12-01" required></label>
+          <label>Adults <input id="adults" type="number" min="1" value="1" required></label>
+          <label>Child ages <input id="child-ages" placeholder="e.g. 5, 14"></label>
+          <label>Budget <input id="budget" type="number" min="0" step="0.01" value="50" required></label>
+          <label class="checkbox"><input id="has-car" type="checkbox"> I have a car</label>
+        </div>
+        <div class="actions">
+          <button type="submit">Search Wikivoyage</button>
+          <button id="demo-button" type="button" class="secondary">Load demo data</button>
+        </div>
+      </form>
+
+      <p id="message" role="status"></p>
+      <section>
+        <h2>Attractions</h2>
+        <div id="results" class="cards"></div>
+      </section>
+      <section class="panel">
+        <h2>My trip</h2>
+        <p id="budget-summary"></p>
+        <ul id="selected"></ul>
+      </section>
+    </main>
+    <script type="module" src="./src/app/main.js"></script>
+  </body>
+</html>

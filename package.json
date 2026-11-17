@@ -1,0 +1,18 @@
+{
+  "name": "travel-attraction-planner",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/server.js",
+    "lint": "eslint src tests",
+    "test": "node --test",
+    "coverage": "c8 --check-coverage --lines 80 --functions 80 --branches 75 --reporter=text npm test",
+    "build": "node --check src/app/bootstrap.js && node --check src/app/main.js && npm run validate:openapi && npm run validate:performance",
+    "validate:openapi": "node scripts/validate-openapi.js",
+    "validate:performance": "node scripts/validate-performance.js"
+  },
+  "devDependencies": {
+    "c8": "^10.1.3",
+    "eslint": "^9.17.0"
+  }
+}
