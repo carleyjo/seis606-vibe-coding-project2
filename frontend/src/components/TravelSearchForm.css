@@ -1,0 +1,126 @@
+.travel-search-form {
+  display: grid;
+  gap: 1.25rem;
+  width: min(100%, 720px);
+  padding: 1.5rem;
+  color: #17213a;
+  background: #fff;
+  border: 1px solid #e2e7f0;
+  border-radius: 1rem;
+  box-shadow: 0 18px 40px rgba(30, 45, 93, .08);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.travel-search-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.travel-search-form__field {
+  display: grid;
+  align-content: start;
+  gap: .45rem;
+}
+
+.travel-search-form__field--wide {
+  grid-column: 1 / -1;
+}
+
+.travel-search-form label,
+.travel-search-form legend {
+  color: #65708b;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.travel-search-form__field input:not([type='radio']) {
+  width: 100%;
+  min-height: 2.8rem;
+  padding: .65rem .8rem;
+  color: #17213a;
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 400;
+  background: #fbfcfe;
+  border: 1px solid #e2e7f0;
+  border-radius: .55rem;
+}
+
+.travel-search-form__field input:focus {
+  outline: 3px solid rgba(66, 98, 233, .18);
+  border-color: #4262e9;
+}
+
+.travel-search-form input[aria-invalid='true'] {
+  border-color: #c94b57;
+}
+
+.travel-search-form__error {
+  margin: 0;
+  color: #b23442;
+  font-size: .75rem;
+  font-weight: 500;
+}
+
+.travel-search-form__radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.travel-search-form__radio-group legend {
+  width: 100%;
+  margin-bottom: .1rem;
+  padding: 0;
+}
+
+.travel-search-form__radio-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: #17213a;
+  font-weight: 500;
+}
+
+.travel-search-form__radio-group input {
+  accent-color: #4262e9;
+}
+
+.travel-search-form__submit {
+  justify-self: start;
+  padding: .8rem 1.15rem;
+  color: #fff;
+  background: #4262e9;
+  border: 0;
+  border-radius: .55rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.travel-search-form__submit:hover,
+.travel-search-form__submit:focus-visible {
+  background: #304ac4;
+}
+
+@media (max-width: 520px) {
+  .travel-search-form {
+    padding: 1.1rem;
+  }
+
+  .travel-search-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .travel-search-form__field--wide {
+    grid-column: auto;
+  }
+
+  .travel-search-form__submit {
+    width: 100%;
+  }
+}

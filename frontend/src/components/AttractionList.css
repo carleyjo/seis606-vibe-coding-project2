@@ -1,0 +1,27 @@
+.attraction-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.attraction-list .attraction-card {
+  width: 100%;
+}
+
+.attraction-list--empty {
+  min-height: 10rem;
+  padding: 2rem;
+  color: #65708b;
+  background: #fff;
+  border: 1px solid #e2e7f0;
+  border-radius: 1rem;
+  place-items: center;
+  text-align: center;
+}
+
+.attraction-list--empty p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}

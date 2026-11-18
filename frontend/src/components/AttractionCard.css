@@ -1,0 +1,144 @@
+.attraction-card {
+  display: grid;
+  gap: 1.25rem;
+  width: min(100%, 430px);
+  padding: 1.5rem;
+  color: #17213a;
+  background: #fff;
+  border: 1px solid #e2e7f0;
+  border-radius: 1rem;
+  box-shadow: 0 18px 40px rgba(30, 45, 93, .08);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.attraction-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.attraction-card__eyebrow {
+  margin: 0 0 .35rem;
+  color: #4262e9;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+.attraction-card h2 {
+  margin: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+.attraction-card__status {
+  flex-shrink: 0;
+  padding: .35rem .65rem;
+  color: #a33b48;
+  background: #fcecef;
+  border-radius: 2rem;
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.attraction-card__status--open {
+  color: #258568;
+  background: #e8f7f1;
+}
+
+.attraction-card__description {
+  margin: 0;
+  color: #65708b;
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.attraction-card__details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .75rem;
+  margin: 0;
+}
+
+.attraction-card__details > div {
+  padding: .8rem;
+  background: #f7f8fc;
+  border-radius: .65rem;
+}
+
+.attraction-card__details dt {
+  color: #65708b;
+  font-size: .72rem;
+}
+
+.attraction-card__details dd {
+  margin: .25rem 0 0;
+  color: #17213a;
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+.attraction-card__details .attraction-card__total {
+  grid-column: 1 / -1;
+  background: #edf1ff;
+}
+
+.attraction-card__total dd {
+  color: #4262e9;
+  font-size: 1.15rem;
+}
+
+.attraction-card__information {
+  display: grid;
+  gap: .8rem;
+  padding-top: .25rem;
+}
+
+.attraction-card__information h3 {
+  margin: 0 0 .2rem;
+  font-size: .78rem;
+}
+
+.attraction-card__information p {
+  margin: 0;
+  color: #65708b;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.attraction-card__button {
+  min-height: 2.8rem;
+  padding: .7rem 1rem;
+  color: #fff;
+  background: #4262e9;
+  border: 0;
+  border-radius: .55rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+
+.attraction-card__button:hover:not(:disabled),
+.attraction-card__button:focus-visible:not(:disabled) {
+  background: #304ac4;
+  transform: translateY(-1px);
+}
+
+.attraction-card__button:disabled {
+  color: #7e879d;
+  background: #e6e9f0;
+  cursor: not-allowed;
+}
+
+@media (max-width: 420px) {
+  .attraction-card {
+    padding: 1.15rem;
+  }
+
+  .attraction-card__header {
+    display: grid;
+  }
+}

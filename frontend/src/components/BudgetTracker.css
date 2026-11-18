@@ -1,0 +1,79 @@
+.budget-tracker {
+  width: min(100%, 720px);
+  padding: 1.5rem;
+  color: #17213a;
+  background: #fff;
+  border: 1px solid #e2e7f0;
+  border-radius: 1rem;
+  box-shadow: 0 18px 40px rgba(30, 45, 93, .08);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.budget-tracker__heading {
+  margin-bottom: 1.25rem;
+}
+
+.budget-tracker__eyebrow {
+  margin: 0 0 .35rem;
+  color: #4262e9;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+.budget-tracker h2 {
+  margin: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.45rem;
+}
+
+.budget-tracker__summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+  margin: 0;
+}
+
+.budget-tracker__summary > div {
+  padding: .9rem;
+  background: #f7f8fc;
+  border-radius: .65rem;
+}
+
+.budget-tracker__summary dt {
+  color: #65708b;
+  font-size: .75rem;
+}
+
+.budget-tracker__summary dd {
+  margin: .35rem 0 0;
+  color: #17213a;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.budget-tracker__remaining {
+  background: #e8f7f1 !important;
+}
+
+.budget-tracker__remaining dd {
+  color: #258568;
+}
+
+.budget-tracker__remaining--low {
+  background: #fcecef !important;
+}
+
+.budget-tracker__remaining--low dd {
+  color: #c0394a;
+}
+
+@media (max-width: 520px) {
+  .budget-tracker {
+    padding: 1.15rem;
+  }
+
+  .budget-tracker__summary {
+    grid-template-columns: 1fr;
+  }
+}

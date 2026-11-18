@@ -1,0 +1,128 @@
+.selected-attractions-panel {
+  display: grid;
+  gap: 1.25rem;
+  width: min(100%, 430px);
+  padding: 1.5rem;
+  color: #17213a;
+  background: #fff;
+  border: 1px solid #e2e7f0;
+  border-radius: 1rem;
+  box-shadow: 0 18px 40px rgba(30, 45, 93, .08);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.selected-attractions-panel__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.selected-attractions-panel__eyebrow {
+  margin: 0 0 .35rem;
+  color: #4262e9;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+.selected-attractions-panel h2 {
+  margin: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.45rem;
+}
+
+.selected-attractions-panel__count {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  color: #4262e9;
+  background: #edf1ff;
+  border-radius: 50%;
+  place-items: center;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.selected-attractions-panel__empty {
+  margin: 0;
+  padding: 1.25rem 0;
+  color: #65708b;
+  font-size: .9rem;
+}
+
+.selected-attractions-panel__list {
+  display: grid;
+  gap: .75rem;
+  margin: 0;
+  padding: 0 0 1.25rem;
+  list-style: none;
+  border-bottom: 1px solid #e2e7f0;
+}
+
+.selected-attractions-panel__list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .45rem .75rem;
+  font-size: .85rem;
+}
+
+.selected-attractions-panel__item-cost {
+  font-weight: 700;
+}
+
+.selected-attractions-panel__list button {
+  grid-column: 1 / -1;
+  justify-self: start;
+  padding: 0;
+  color: #4262e9;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: .75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.selected-attractions-panel__list button:hover,
+.selected-attractions-panel__list button:focus-visible {
+  color: #304ac4;
+  text-decoration: underline;
+}
+
+.selected-attractions-panel__summary {
+  display: grid;
+  gap: .75rem;
+  margin: 0;
+}
+
+.selected-attractions-panel__summary > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #65708b;
+  font-size: .8rem;
+}
+
+.selected-attractions-panel__summary dd {
+  margin: 0;
+  color: #17213a;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.selected-attractions-panel__remaining dd {
+  color: #258568;
+}
+
+.selected-attractions-panel__remaining--over dd {
+  color: #c0394a;
+}
+
+@media (max-width: 520px) {
+  .selected-attractions-panel {
+    padding: 1.15rem;
+  }
+}
