@@ -1,39 +1,16 @@
+import { describe, expect, it } from 'vitest';
 import { calculateAttractionCost } from './calculateAttractionCost';
 
 describe('calculateAttractionCost', () => {
-  it('calculates adult and child admission together', () => {
-    expect(calculateAttractionCost({
-      adultPrice: 18,
-      childPrice: 12,
-      adults: 2,
-      children: 1,
-    })).toBe(48);
+  it('calculates total cost for 2 adults and 3 children', () => {
+    expect(calculateAttractionCost(20, 10, 2, 3)).toBe(70);
   });
 
-  it('calculates adult-only admission', () => {
-    expect(calculateAttractionCost({
-      adultPrice: 20,
-      childPrice: 10,
-      adults: 3,
-      children: 0,
-    })).toBe(60);
+  it('calculates total cost for 1 adult and 1 child', () => {
+    expect(calculateAttractionCost(25, 15, 1, 1)).toBe(40);
   });
 
-  it('calculates child-only admission', () => {
-    expect(calculateAttractionCost({
-      adultPrice: 25,
-      childPrice: 8,
-      adults: 0,
-      children: 2,
-    })).toBe(16);
-  });
-
-  it('returns zero for a free attraction with no visitors', () => {
-    expect(calculateAttractionCost({
-      adultPrice: 0,
-      childPrice: 0,
-      adults: 0,
-      children: 0,
-    })).toBe(0);
+  it('calculates total cost for 2 adults and no children', () => {
+    expect(calculateAttractionCost(25, 15, 2, 0)).toBe(50);
   });
 });
