@@ -4,7 +4,7 @@ export function calculateAttractionCost(
   adults: number,
   children: number
 ): number {
-  return (adultPrice * adults) + (childPrice * children);
+  return 0;
 }
 
 export default calculateAttractionCost;
