@@ -78,12 +78,37 @@ function showMessage(text, type = "") {
 function showNoResultsMessage(city) {
   message.textContent = "Wiki Voyage data unclear. Learn more about your city here: ";
   const link = document.createElement("a");
-  link.href = `https://en.wikivoyage.org/wiki/${encodeURIComponent(city.trim().replace(/\s+/g, "_"))}`;
+  link.href = getCityWikiVoyageUrl(city);
   link.target = "_blank";
   link.rel = "noreferrer";
   link.textContent = city.trim();
   message.append(link);
   message.className = "error";
+}
+
+function getCityWikiVoyageUrl(city) {
+  return `https://en.wikivoyage.org/wiki/${encodeURIComponent(city.trim().replace(/\s+/g, "_"))}`;
+}
+
+function showCityWikiVoyageLink(city) {
+  const cityHelp = document.querySelector("#city-help");
+  cityHelp.textContent = "Learn more about your city here: ";
+  const link = document.createElement("a");
+  link.href = getCityWikiVoyageUrl(city);
+  link.target = "_blank";
+  link.rel = "noreferrer";
+  link.textContent = city.trim();
+  cityHelp.append(link);
+}
+
+function updateCityQuery(city) {
+  const url = new URL(globalThis.location.href);
+  if (city.trim()) {
+    url.searchParams.set("city", city.trim());
+  } else {
+    url.searchParams.delete("city");
+  }
+  globalThis.history.replaceState({}, "", url);
 }
 
 function renderSelection() {
@@ -255,6 +280,7 @@ function renderResults() {
 async function runSearch(client = app.client) {
   try {
     const input = getInput();
+    updateCityQuery(input.city);
     selectionState = app.createSelectionState(input.budget);
     const result = await app.search(input, client);
     currentResults = result.results;
@@ -265,6 +291,7 @@ async function runSearch(client = app.client) {
     } else {
       showMessage(`${result.results.length} attractions found.`, "success");
     }
+    showCityWikiVoyageLink(input.city);
   } catch (error) {
     currentResults = [];
     renderResults();
@@ -347,3 +374,9 @@ if (savedUser) {
   if (selectionState) renderSelection();
 }
 updateAccountUi();
+
+const queryCity = new URL(globalThis.location.href).searchParams.get("city");
+if (queryCity) {
+  document.querySelector("#city").value = queryCity;
+  runSearch();
+}

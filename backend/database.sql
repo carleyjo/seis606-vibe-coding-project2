@@ -22,10 +22,10 @@ INSERT INTO bangkok_attractions (
     dates_closed,
     days_of_week_closed
 ) VALUES
-    ('Bangkok', 'Grand Palace', 14.00, 0.00, 6, 'For children under 120', 'MRT underground, the Chao Phraya River boats, or local buses.', NULL, NULL),
-    ('Bangkok', 'Wat Pho', 9.00, 0.00, 6, 'For children under 120', 'MRT Subway (Blue Line)', NULL, NULL),
+    ('Bangkok', 'Grand Palace', 14.00, 0.00, 6, 'For children under 120cm', 'MRT underground, the Chao Phraya River boats, or local buses.', NULL, NULL),
+    ('Bangkok', 'Wat Pho', 9.00, 0.00, 6, 'For children under 120cm', 'MRT Subway (Blue Line)', NULL, NULL),
     ('Bangkok', 'Wat Arun', 6.00, 0.00, 6, 'For children under 120', 'BTS Skytrain + River Boat + Ferry', NULL, NULL),
-    ('Bangkok', 'Wat Phra Kaew', 14.00, 0.00, 6, 'For children under 120', 'BTS Skytrain + River Boat', NULL, NULL),
+    ('Bangkok', 'Wat Phra Kaew', 14.00, 0.00, 6, 'For children under 120cm', 'BTS Skytrain + River Boat', NULL, NULL),
     ('Bangkok', 'Jim Thompson''s House', 7.37, 0.00, 9, NULL, 'BTS Skytrain (Silom Line)', NULL, NULL),
     ('Bangkok', 'M.R. Kukrit''s Heritage Home', 1.47, 0.59, 18, NULL, 'Chong Nonsi BTS Skytrain Station', NULL, NULL),
     ('Bangkok', 'National Museum', 7.07, 0.00, 12, 'H is the d', 'BTS Skytrain (Silom Line)', '4/13, 4/14, 4/15', 'Mondays, Tuesdays'),

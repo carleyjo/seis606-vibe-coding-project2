@@ -14,7 +14,8 @@ const contentTypes = {
 
 
 createServer(async (request, response) => {
-  const requestedPath = request.url === "/" ? "/index.html" : request.url;
+  const pathname = new URL(request.url, "http://localhost").pathname;
+  const requestedPath = pathname === "/" ? "/index.html" : pathname;
   const filePath = normalize(join(root, requestedPath));
   if (!filePath.startsWith(root)) {
     response.writeHead(403);
