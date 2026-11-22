@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Travel Attraction Planner Logical API
+  version: 1.0.0
+  description: |
+    Contract for the client-side application boundary. The first release is
+    backend-free; these operations are implemented by ES6 modules and documented
+    here so a future authenticated server can preserve the same shapes.
+servers:
+  - url: https://localhost
+    description: Logical client boundary
+paths:
+  /searches:
+    post:
+      summary: Search for attractions
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TripSearch'
+      responses:
+        '200':
+          description: Matching and explicitly unknown-cost attractions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Invalid search input
+        '502':
+          description: Wikivoyage source unavailable
+  /selections:
+    put:
+      summary: Replace the current local selection
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectionState'
+      responses:
+        '200':
+          description: Updated selection state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectionState'
+        '400':
+          description: Selection violates duplicate or known-budget rules
+components:
+  schemas:
+    TripSearch:
+      type: object
+      required: [city, startDate, endDate, adultCount, childAges, hasCar, budget]
+      properties:
+        city: {type: string, minLength: 1}
+        startDate: {type: string, format: date}
+        endDate: {type: string, format: date}
+        adultCount: {type: integer, minimum: 1}
+        childAges:
+          type: array
+          items: {type: integer, minimum: 0, maximum: 17}
+        hasCar: {type: boolean}
+        budget: {type: number, minimum: 0}
+    SearchResponse:
+      type: object
+      required: [results, sourceStatus]
+      properties:
+        results:
+          type: array
+          items: {$ref: '#/components/schemas/Attraction'}
+        sourceStatus: {type: string, enum: [fresh, stale, unavailable]}
+    Attraction:
+      type: object
+      required: [id, name, articleUrl, pricing, opening, source]
+      properties:
+        id: {type: string}
+        name: {type: string}
+        articleUrl: {type: string, format: uri}
+        pricing: {$ref: '#/components/schemas/Pricing'}
+        opening: {type: object}
+        transportation: {type: object, nullable: true}
+        source: {$ref: '#/components/schemas/SourceRecord'}
+    Pricing:
+      type: object
+      required: [status]
+      properties:
+        status: {type: string, enum: [free, known, estimated, unknown]}
+        groupCost: {type: number, minimum: 0, nullable: true}
+        disclaimer: {type: string, nullable: true}
+    SourceRecord:
+      type: object
+      required: [provider, articleUrl, retrievedAt]
+      properties:
+        provider: {type: string}
+        articleUrl: {type: string, format: uri}
+        retrievedAt: {type: string, format: date-time}
+        license: {type: string}
+    SelectionState:
+      type: object
+      required: [selectedAttractionIds, aggregateStatus]
+      properties:
+        selectedAttractionIds:
+          type: array
+          uniqueItems: true
+          items: {type: string}
+        aggregateStatus:
+          type: string
+          enum: [known, unknown]
+        knownTotal:
+          type: number
+          minimum: 0
+          nullable: true

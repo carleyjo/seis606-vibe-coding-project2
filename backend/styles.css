@@ -1,0 +1,26 @@
+:root { color: #172033; background: #f4f7fb; font-family: system-ui, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.shell { max-width: 960px; margin: auto; padding: 2rem 1rem 4rem; }
+.eyebrow { color: #2563eb; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+h1 { margin: .25rem 0; font-size: clamp(2rem, 6vw, 3.5rem); }
+h2 { margin-top: 2rem; }
+.panel, .card { background: white; border: 1px solid #dce3ef; border-radius: 12px; padding: 1rem; box-shadow: 0 4px 16px #1720330b; }
+.grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin: 1rem 0; }
+label { display: grid; gap: .35rem; font-weight: 600; }
+input { width: 100%; padding: .65rem; border: 1px solid #b9c5d8; border-radius: 7px; font: inherit; }
+.checkbox { display: flex; align-items: center; grid-template-columns: auto 1fr; padding-top: 1.8rem; }
+.checkbox input { width: auto; }
+button { border: 0; border-radius: 7px; padding: .65rem .9rem; background: #2563eb; color: white; cursor: pointer; font: inherit; }
+button:hover { background: #1d4ed8; }
+button.secondary { background: #e8eefb; color: #1e40af; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.card h3 { margin-top: 0; }
+.card a { display: inline-block; margin: .5rem .75rem .5rem 0; }
+.muted { color: #58657a; font-size: .9rem; }
+#message { min-height: 1.5rem; font-weight: 600; }
+.success { color: #137333; }
+.error { color: #b42318; }
+li { margin: .5rem 0; }
+li button { margin-left: .75rem; padding: .35rem .6rem; background: #eef2f7; color: #27364d; }
