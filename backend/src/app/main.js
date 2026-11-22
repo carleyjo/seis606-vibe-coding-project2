@@ -1,4 +1,6 @@
 import { createTravelApp } from "./bootstrap.js";
+import { createLocalAuthStore } from "../storage/local-auth-store.js";
+import { createLocalTripStore } from "../storage/local-trip-store.js";
 
 const demoAttractions = [
   {
@@ -33,8 +35,11 @@ const demoClient = {
 };
 
 const app = createTravelApp();
+const authStore = createLocalAuthStore();
 let selectionState = null;
 let currentResults = [];
+let currentUser = null;
+let tripStore = app.tripStore;
 
 const form = document.querySelector("#search-form");
 const results = document.querySelector("#results");
@@ -42,6 +47,15 @@ const message = document.querySelector("#message");
 const selected = document.querySelector("#selected");
 const budgetSummary = document.querySelector("#budget-summary");
 const demoButton = document.querySelector("#demo-button");
+const accountForm = document.querySelector("#account-form");
+const accountStatus = document.querySelector("#account-status");
+const registerButton = document.querySelector("#register-button");
+const logoutButton = document.querySelector("#logout-button");
+const saveTripControls = document.querySelector("#save-trip-controls");
+const savedTrips = document.querySelector("#saved-trips");
+const savedTripList = document.querySelector("#saved-trip-list");
+const tripName = document.querySelector("#trip-name");
+const saveTripButton = document.querySelector("#save-trip-button");
 
 function getInput() {
   return {
@@ -61,6 +75,17 @@ function showMessage(text, type = "") {
   message.className = type;
 }
 
+function showNoResultsMessage(city) {
+  message.textContent = "Wiki Voyage data unclear. Learn more about your city here: ";
+  const link = document.createElement("a");
+  link.href = `https://en.wikivoyage.org/wiki/${encodeURIComponent(city.trim().replace(/\s+/g, "_"))}`;
+  link.target = "_blank";
+  link.rel = "noreferrer";
+  link.textContent = city.trim();
+  message.append(link);
+  message.className = "error";
+}
+
 function renderSelection() {
   selected.innerHTML = "";
   if (!selectionState || selectionState.selections.length === 0) {
@@ -76,7 +101,7 @@ function renderSelection() {
     remove.textContent = "Remove";
     remove.addEventListener("click", () => {
       selectionState = app.removeSelection(selectionState, attraction.id);
-      app.tripStore.save(selectionState);
+      tripStore.save(selectionState);
       renderSelection();
     });
     item.append(remove);
@@ -85,6 +110,72 @@ function renderSelection() {
   budgetSummary.textContent = selectionState.aggregateStatus === "unknown"
     ? "Selected total: unknown (an attraction has an unknown cost)."
     : `Selected total: $${selectionState.knownTotal.toFixed(2)} | Remaining: $${selectionState.remainingBudget.toFixed(2)}`;
+}
+
+function renderSavedTrips() {
+  if (!currentUser) {
+    savedTrips.hidden = true;
+    savedTripList.innerHTML = "";
+    return;
+  }
+  savedTrips.hidden = false;
+  savedTripList.innerHTML = "";
+  const trips = tripStore.listNamed();
+  if (trips.length === 0) {
+    savedTripList.textContent = "No saved trips yet.";
+    return;
+  }
+  trips.forEach(trip => {
+    const item = document.createElement("li");
+    const load = document.createElement("button");
+    load.type = "button";
+    load.textContent = `Load ${trip.name}`;
+    load.addEventListener("click", () => {
+      selectionState = trip.value;
+      renderSelection();
+      showMessage(`${trip.name} loaded.`, "success");
+    });
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = "Delete";
+    remove.addEventListener("click", () => {
+      tripStore.deleteNamed(trip.id);
+      renderSavedTrips();
+      showMessage(`${trip.name} deleted.`, "success");
+    });
+    item.append(trip.name, " ", load, " ", remove);
+    savedTripList.append(item);
+  });
+}
+
+function updateAccountUi() {
+  const loggedIn = Boolean(currentUser);
+  accountStatus.textContent = loggedIn
+    ? `Logged in as ${currentUser}.`
+    : "Log in or create an account to save your trips.";
+  document.querySelector("#username").disabled = loggedIn;
+  document.querySelector("#password").disabled = loggedIn;
+  if (loggedIn) document.querySelector("#password").value = "";
+  accountForm.querySelector('button[type="submit"]').hidden = loggedIn;
+  registerButton.hidden = loggedIn;
+  logoutButton.hidden = !loggedIn;
+  saveTripControls.hidden = !loggedIn;
+  renderSavedTrips();
+}
+
+function showAccountMessage(text, type = "") {
+  accountStatus.textContent = text;
+  accountStatus.className = type;
+}
+
+async function setLoggedInUser(username) {
+  currentUser = username;
+  document.querySelector("#username").value = username;
+  document.querySelector("#password").value = "";
+  tripStore = createLocalTripStore(localStorage, username);
+  selectionState = tripStore.load();
+  updateAccountUi();
+  if (selectionState) renderSelection();
 }
 
 function renderResults() {
@@ -149,7 +240,7 @@ function renderResults() {
     button.addEventListener("click", () => {
       try {
         selectionState = app.addSelection(selectionState, attraction);
-        app.tripStore.save(selectionState);
+        tripStore.save(selectionState);
         renderSelection();
         showMessage(`${attraction.name} added.`, "success");
       } catch (error) {
@@ -169,13 +260,73 @@ async function runSearch(client = app.client) {
     currentResults = result.results;
     renderResults();
     renderSelection();
-    showMessage(result.noResults ? "No matching attractions found." : `${result.results.length} attractions found.`, result.noResults ? "error" : "success");
+    if (result.noResults) {
+      showNoResultsMessage(input.city);
+    } else {
+      showMessage(`${result.results.length} attractions found.`, "success");
+    }
   } catch (error) {
     currentResults = [];
     renderResults();
     showMessage(error.message, "error");
   }
 }
+
+accountForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  try {
+    const username = await authStore.login(
+      document.querySelector("#username").value,
+      document.querySelector("#password").value
+    );
+    await setLoggedInUser(username);
+    showAccountMessage(`Logged in as ${username}.`, "success");
+  } catch (error) {
+    showAccountMessage(error.message, "error");
+  }
+});
+
+registerButton.addEventListener("click", async () => {
+  try {
+    const username = await authStore.register(
+      document.querySelector("#username").value,
+      document.querySelector("#password").value
+    );
+    await setLoggedInUser(username);
+    showAccountMessage(`Account created. Logged in as ${username}.`, "success");
+  } catch (error) {
+    showAccountMessage(error.message, "error");
+  }
+});
+
+logoutButton.addEventListener("click", () => {
+  authStore.logout();
+  currentUser = null;
+  tripStore = app.tripStore;
+  selectionState = null;
+  renderSelection();
+  updateAccountUi();
+  showAccountMessage("You have been logged out.", "success");
+});
+
+saveTripButton.addEventListener("click", () => {
+  const name = tripName.value.trim();
+  if (!name) {
+    showMessage("Enter a name for this trip.", "error");
+    return;
+  }
+  if (!selectionState || selectionState.selections.length === 0) {
+    showMessage("Add at least one attraction before saving.", "error");
+    return;
+  }
+  if (tripStore.saveNamed(name, selectionState)) {
+    tripName.value = "";
+    renderSavedTrips();
+    showMessage(`${name} saved.`, "success");
+  } else {
+    showMessage("This trip could not be saved.", "error");
+  }
+});
 
 form.addEventListener("submit", event => {
   event.preventDefault();
@@ -188,8 +339,11 @@ demoButton.addEventListener("click", () => {
   runSearch(demoClient);
 });
 
-const saved = app.tripStore.load();
-if (saved) {
-  selectionState = saved;
-  renderSelection();
+const savedUser = authStore.currentUser();
+if (savedUser) {
+  setLoggedInUser(savedUser);
+} else {
+  selectionState = tripStore.load();
+  if (selectionState) renderSelection();
 }
+updateAccountUi();

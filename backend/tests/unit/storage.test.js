@@ -27,3 +27,15 @@ test("returns null for malformed or unavailable storage", () => {
   assert.equal(store.clear(), false);
   assert.equal(createLocalTripStore(null).load(), null);
 });
+
+test("isolates named trips by user", () => {
+  const sharedStorage = storage();
+  const alex = createLocalTripStore(sharedStorage, "alex");
+  const sam = createLocalTripStore(sharedStorage, "sam");
+  assert.equal(alex.saveNamed("Paris", { selections: ["1"] }), true);
+  assert.equal(alex.listNamed().length, 1);
+  assert.equal(sam.listNamed().length, 0);
+  assert.deepEqual(alex.loadNamed(alex.listNamed()[0].id).value, { selections: ["1"] });
+  assert.equal(alex.deleteNamed(alex.listNamed()[0].id), true);
+  assert.equal(alex.listNamed().length, 0);
+});

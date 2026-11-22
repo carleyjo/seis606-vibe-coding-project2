@@ -18,9 +18,15 @@ button.secondary { background: #e8eefb; color: #1e40af; }
 .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
 .card h3 { margin-top: 0; }
 .card a { display: inline-block; margin: .5rem .75rem .5rem 0; }
+.panel + .panel { margin-top: 1rem; }
+.panel h3 { margin-bottom: .5rem; }
 .muted { color: #58657a; font-size: .9rem; }
 #message { min-height: 1.5rem; font-weight: 600; }
+.error, .success { min-height: 1.5rem; }
 .success { color: #137333; }
 .error { color: #b42318; }
+#save-trip-controls { display: flex; align-items: end; gap: .6rem; flex-wrap: wrap; margin-top: 1rem; }
+#save-trip-controls label { min-width: 220px; }
+#saved-trips { margin-top: 1.5rem; }
 li { margin: .5rem 0; }
 li button { margin-left: .75rem; padding: .35rem .6rem; background: #eef2f7; color: #27364d; }

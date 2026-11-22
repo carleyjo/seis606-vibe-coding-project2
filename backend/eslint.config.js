@@ -12,6 +12,7 @@ export default [
       sourceType: "module",
       globals: {
         URL: "readonly",
+        window: "readonly",
         document: "readonly",
         setTimeout: "readonly",
         fetch: "readonly",

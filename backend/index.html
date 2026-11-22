@@ -15,6 +15,22 @@
         <p>Search Wikivoyage for attractions that fit your dates and budget.</p>
       </header>
 
+      <section class="panel" aria-labelledby="account-heading">
+        <h2 id="account-heading">Your account</h2>
+        <p id="account-status">Log in or create an account to save your trips.</p>
+        <form id="account-form">
+          <div class="grid">
+            <label>Username <input id="username" autocomplete="username" required></label>
+            <label>Password <input id="password" type="password" autocomplete="current-password" required></label>
+          </div>
+          <div class="actions">
+            <button type="submit">Log in</button>
+            <button id="register-button" type="button" class="secondary">Create account</button>
+            <button id="logout-button" type="button" class="secondary" hidden>Log out</button>
+          </div>
+        </form>
+      </section>
+
       <form id="search-form" class="panel">
         <label>City <input id="city" required value="London"></label>
         <div class="grid">
@@ -40,6 +56,14 @@
         <h2>My trip</h2>
         <p id="budget-summary"></p>
         <ul id="selected"></ul>
+        <div id="save-trip-controls" hidden>
+          <label>Trip name <input id="trip-name" placeholder="e.g. Paris weekend"></label>
+          <button id="save-trip-button" type="button">Save trip</button>
+        </div>
+        <div id="saved-trips" hidden>
+          <h3>Saved trips</h3>
+          <ul id="saved-trip-list"></ul>
+        </div>
       </section>
     </main>
     <script src="./vendor/sql-wasm.js"></script>
