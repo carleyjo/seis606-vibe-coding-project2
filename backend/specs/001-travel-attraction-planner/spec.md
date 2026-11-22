@@ -3,6 +3,7 @@
 **Feature Branch**: `001-travel-attraction-planner`
 
 **Created**: 2026-11-07
+Updated: 2026-11-22
 
 **Status**: Draft
 
@@ -16,6 +17,13 @@
 - Q: Should the entered budget cover only attraction admission fees, or should it also include local transportation costs? → A: Admission fees only; transportation costs are informational and are not deducted.
 - Q: What should happen when an attraction has no reliable child admission price but the travel group includes children? → A: Use the adult price as a conservative child-price estimate and clearly label the assumption.
 - Q: How should the application handle attractions with different child age definitions? → A: Collect each child's age and apply the attraction's published age bands to determine that child's price category.
+
+### Session 2026-11-22
+
+- Q: May travelers save trips after the standalone release? → A: Optional username-and-password accounts may be used; guest use remains available.
+- Q: What account fields are required? → A: A username and password only.
+- Q: Where are accounts and saved trips stored in the standalone implementation? → A: In browser local storage on the current device, with trips isolated by username.
+- Q: What should a city search link display after results or no-results? → A: A "Learn more about your city here:" link to the searched city's Wikivoyage page.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -47,8 +55,8 @@ date and whose total group admission cost is within the stated budget.
 5. **Given** an attraction with an unknown admission cost, **When** results are
    generated, **Then** it is included with an explicit unknown-cost disclaimer.
 6. **Given** no matching attractions, **When** the search completes, **Then** the
-   application clearly states that no matches were found and suggests changing the
-   search inputs.
+   application states that Wikivoyage data is unclear and provides a city-specific
+   Wikivoyage link for the searched city.
 
 ---
 
@@ -131,6 +139,32 @@ label.
    the traveler has no car, **Then** the application clearly labels the information
    as unavailable and does not invent a route, schedule, or fare.
 
+---
+
+### User Story 5 - Save trips with an optional account (Priority: P2)
+
+As a returning traveler, I want to log in with a username and password and save named
+trip plans so that I can view and reload them later.
+
+**Why this priority**: Saving trips makes the application useful beyond a one-time
+search while preserving guest access.
+
+**Independent Test**: Create an account using only a username and password, add an
+attraction, save a named trip, log out, log in, and verify that only that account's
+saved trips are available.
+
+**Acceptance Scenarios**:
+
+1. **Given** a traveler creates an account or logs in, **When** valid username and
+   password values are submitted, **Then** the application provides access to that
+   account's saved trips.
+2. **Given** a signed-in traveler has selected attractions, **When** they enter a trip
+   name and choose save, **Then** the named trip is available in their saved-trip list.
+3. **Given** a named saved trip, **When** the traveler chooses load or delete,
+   **Then** the application loads or removes that trip respectively.
+4. **Given** a traveler has not signed in, **When** they search and select attractions,
+   **Then** they can use the application without account fields blocking the guest flow.
+
 
 
 ### Edge Cases
@@ -193,7 +227,8 @@ label.
   attraction and destination information, or clearly identify an approved supporting
   source when required information is unavailable there. A static SQL source may
   provide structured fallback data for a covered city; the app MUST not search
-  Wikivoyage for that city when matching local SQL rows exist.
+  Wikivoyage for that city when matching local SQL rows exist. The SQL fallback
+  currently provides structured attraction data for Bangkok and Paris.
 - **FR-014**: The application MUST provide user-facing error messages when the source
   cannot be reached or the search cannot be completed.
 - **FR-015**: A user MUST be able to enter the city they are traveling to, the date
@@ -210,7 +245,19 @@ label.
   show all selected attractions, prevent known costs from exceeding the budget, and
   clearly label the total and remaining budget as unknown when an unknown-cost
   selection prevents a definitive calculation.
-- **FR-017**: The standalone first release MUST allow users to search and manage selections without creating an account or signing in. Any future server endpoint MUST require authentication.
+- **FR-017**: The standalone first release MUST allow users to search and manage
+  selections without creating an account or signing in.
+- **FR-018**: An optional account MUST require only a username and password; the
+  application MUST NOT require email, phone number, or other personal contact fields.
+- **FR-019**: A browser-local account implementation MUST isolate saved trips by
+  username and MUST NOT store account passwords in plaintext.
+- **FR-020**: A signed-in user MUST be able to save a named trip, view saved trips,
+  load a saved trip, and delete a saved trip.
+- **FR-021**: Every city search MUST update a shareable `city` query parameter and
+  preload and run the search when a URL with `city` is opened.
+- **FR-022**: After every search, the application MUST display "Learn more about your
+  city here:" followed by a link to the Wikivoyage page generated from the searched
+  city name. The link MUST open in a new browser tab.
 
 ### Key Entities
 
@@ -226,6 +273,9 @@ label.
   disclosed to the user.
 - **Source Record**: The origin, retrieval status, and freshness context for
   attraction details shown to the user.
+- **User Account**: A browser-local username and hashed password used to isolate saved
+  trips.
+- **Saved Trip**: A named collection of attraction selections stored for a username.
 
 ## Success Criteria *(mandatory)*
 
@@ -247,10 +297,15 @@ label.
   guidance or an explicit unavailable-data label.
 - **SC-007**: The primary search and selection flows are usable on both desktop and
   mobile browsers without loss of required information or controls.
+- **SC-008**: A traveler can create a browser-local account, save a named trip, log
+  out, log back in, and view or load that trip.
+- **SC-009**: Successful and no-result searches both provide a working city-specific
+  Wikivoyage link, and city query links automatically fill and search the city field.
 
 ## Assumptions
 
-- Users have internet access; the standalone first release does not require an account.
+- Users have internet access. Guest use remains available, and optional accounts are
+  stored only in browser local storage for the standalone implementation.
 - The total budget applies to attraction admission for the full traveler group, not
   flights, lodging, meals, or local transportation costs
 - A selected date range includes every calendar date from the start date through the
